@@ -60,5 +60,46 @@ public class WebTest
 		assertNotNull(spans);
 		assertEquals(5, spans.size());
 	}
+	
+	@Test
+	public void participantCount() throws Exception
+	{
+		driver.get("http://www.checkbox.io/studies.html");
+		
+		// http://geekswithblogs.net/Aligned/archive/2014/10/16/selenium-and-timing-issues.aspx
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span[contains(text(), 'Frustration of Software Developers')]/../../following-sibling::div//span[@class='backers']")));
+		List<WebElement> spans = driver.findElements(By.xpath("//div//span[contains(text(), 'Frustration of Software Developers')]/../../following-sibling::div//span[@class='backers']"));
+		String text = new String( spans.get(0).getText());
+		
+		assertEquals("55", text);
+	}
+	
+	@Test
+	public void clickParticipate() throws Exception
+	{
+		driver.get("http://www.checkbox.io/studies.html");
+		
+		// http://geekswithblogs.net/Aligned/archive/2014/10/16/selenium-and-timing-issues.aspx
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='status']/span[.='OPEN']")));
+		List<WebElement> spans = driver.findElements(By.xpath("//a[@class='status']/span[.='OPEN']"));
+		List<WebElement> buttons = driver.findElements(By.xpath("//button[.='Participate']"));
 
+		assertEquals(buttons.size(), spans.size());
+	}
+	
+	@Test
+	public void amazonPresent() throws Exception
+	{
+		driver.get("http://www.checkbox.io/studies.html");
+		
+		// http://geekswithblogs.net/Aligned/archive/2014/10/16/selenium-and-timing-issues.aspx
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span[contains(text(), 'Software Changes Survey')]")));
+		List<WebElement> spans = driver.findElements(By.xpath("//div//span[contains(text(), 'Software Changes Survey')]/../..//div[@class='award']//img[@src='/media/amazongc-micro.jpg']"));
+
+		assertEquals(1,spans.size());
+	}
 }
