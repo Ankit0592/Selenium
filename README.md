@@ -1,12 +1,13 @@
 # HW2
 
-### OO Design Patterns    
+### OO Design Patterns      
+*References:* http://www.geeksforgeeks.org/singleton-design-pattern/ , https://sourcemaking.com/design_patterns, https://www.tutorialspoint.com/design_pattern/factory_pattern.htm      
 **1. Creational Patterns:** They are all about class instantiation and are divided into class creation and object creation patterns.  
 Examples of Creational Patterns:  
 **a) Singleton Pattern:** The singleton pattern is one of the simplest design patterns: it involves only one class which is responsible to instantiate itself, to make sure it creates not more than one instance; in the same time it provides a global point of access to that instance. In this case the same instance can be used from everywhere, being impossible to invoke directly the constructor each time.     The implementation involves a static member in the "Singleton" class, a private constructor and a static public method that returns a reference to the static member.     
 
 *Example:* Here we have declared getInstance() static so that we can call it without instantiating the class. The first time getInstance() is called it creates a new singleton object and after that it just returns the same object. Note that Singleton obj is not created until we need it and call getInstance() method.   
-''''
+```
 // Classical Java implementation of singleton       
 // design pattern       
 class Singleton
@@ -24,17 +25,24 @@ class Singleton
         return obj;
     }
 }
-''''
+```
     
 **b)  Factory Method Pattern:** It lets a class defer instantiation to subclasses. Define an interface for creating an object, but let subclasses decide which class to instantiate.    
 It is useful in scenarios like this: A framework needs to standardize the architectural model for a range of applications, but allow for individual applications to define their own domain objects and provide for their instantiation.     
     
-Checklist for Factory Design Pattern:    
-* If you have an inheritance hierarchy that exercises polymorphism, consider adding a polymorphic creation capability by defining a static factory method in the base class.    
-* Design the arguments to the factory method. What qualities or characteristics are necessary and sufficient to identify the correct derived class to instantiate?    
-* Consider designing an internal "object pool" that will allow objects to be reused instead of created from scratch.    
-* Consider making all constructors private or protected.    
-                
+*Example:*      
+Step-1: Create an interface (say, Shape)        
+Step-2: Create concrete classes implementing the same interface (say, Rectangle, Triangle,Square)       
+Step-3: Create a Factory to generate object of concrete class based on given information (say, ShapeFactory)        
+Step-4: Use the Factory to get object of concrete class by passing an information such as type      
+```
+ShapeFactory shapeFactory = new ShapeFactory();
+
+//get an object of Circle and call its draw method.
+Shape shape1 = shapeFactory.getShape("CIRCLE");
+```     
+     
+*References:* https://sourcemaking.com/design_patterns, http://www.oodesign.com/proxy-pattern.html    
 **2. Structural Design Patterns:** These design patterns are all about class and object composition. Structural class-creation patterns use inheritance to compose interfaces.    
 **a) Proxy Design Pattern:** It provides a surrogate or placeholder for another object to control access to it.   
 There are four common situations in which the Proxy pattern is applicable:    
@@ -42,6 +50,7 @@ There are four common situations in which the Proxy pattern is applicable:
 * A remote proxy provides a local representative for an object that resides in a different address space.     
 * A protective proxy controls access to a sensitive master object. The "surrogate" object checks that the caller has the access permissions required prior to forwarding the request.   
 * A smart proxy interposes additional actions when an object is accessed.   
+*Description of its working:* A client obtains a reference to a Proxy, the client then handles the proxy in the same way it handles RealSubject and thus invoking the method doSomething(). At that point the proxy can do different things prior to invoking RealSubject's doSomething() method. The client might create a RealSubject object at that point, perform initialization, check permissions of the client to invoke the method, and then invoke the method on the object. The client can also do additional tasks after invoking the doSomething() method, such as incrementing the number of references to the object.     
     
 **b) Decorator Design Pattern:** It provide a flexible alternative to subclassing for extending functionality. It attaches additional responsibilities to an object dynamically.    
 When we want to add behavior or state to individual objects at run-time, inheritance is not feasible because it is static and applies to an entire class.   
