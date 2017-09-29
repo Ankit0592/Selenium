@@ -5,8 +5,8 @@
 Examples of Creational Patterns:  
 **a) Singleton Pattern:** The singleton pattern is one of the simplest design patterns: it involves only one class which is responsible to instantiate itself, to make sure it creates not more than one instance; in the same time it provides a global point of access to that instance. In this case the same instance can be used from everywhere, being impossible to invoke directly the constructor each time.     The implementation involves a static member in the "Singleton" class, a private constructor and a static public method that returns a reference to the static member.     
 
-*Example:* Here we have declared getInstance() static so that we can call it without instantiating the class. The first time getInstance() is called it creates a new singleton object and after that it just returns the same object. Note that Singleton obj is not created until we need it and call getInstance() method. 
-/*
+*Example:* Here we have declared getInstance() static so that we can call it without instantiating the class. The first time getInstance() is called it creates a new singleton object and after that it just returns the same object. Note that Singleton obj is not created until we need it and call getInstance() method.   
+''''
 // Classical Java implementation of singleton 
 // design pattern
 class Singleton
@@ -24,7 +24,7 @@ class Singleton
         return obj;
     }
 }
-*/
+''''
     
 **b)  Factory Method Pattern:** It lets a class defer instantiation to subclasses. Define an interface for creating an object, but let subclasses decide which class to instantiate.    
 It is useful in scenarios like this: A framework needs to standardize the architectural model for a range of applications, but allow for individual applications to define their own domain objects and provide for their instantiation.     
