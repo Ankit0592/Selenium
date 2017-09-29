@@ -7,8 +7,8 @@ Examples of Creational Patterns:
 
 *Example:* Here we have declared getInstance() static so that we can call it without instantiating the class. The first time getInstance() is called it creates a new singleton object and after that it just returns the same object. Note that Singleton obj is not created until we need it and call getInstance() method.   
 ''''
-// Classical Java implementation of singleton 
-// design pattern
+// Classical Java implementation of singleton       
+// design pattern       
 class Singleton
 {
     private static Singleton obj;
