@@ -68,11 +68,22 @@ In this example we can see the following actors:
 * GeneralReport is a visitor class and implements the IVisitor interface        
     
 **b) Observer Pattern:** It is a way to notify a change to number of classes. It defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically. Procedure followed: Define an object that is the "keeper" of the data model and/or business logic (the Subject). Delegate all "view" functionality to decoupled and distinct Observer objects. Observers register themselves with the Subject as they are created. Whenever the Subject changes, it broadcasts to all registered Observers that it has changed, and each Observer queries the Subject for that subset of the Subject's state that it is responsible for monitoring.   
-*Example* News Agency       
+*Example:* News Agency       
 Lets' take the example of a news agency. A news agency gathers news and publish them to different subscribers. We need to create a framework for an agency to be able to inform immediately, when event occurs, its subscribers about the event. The subscribers can receive the news in different ways: Emails, SMS, etc. The solution need to be extensively enough to support new types of subscribers(maybe new communication technologies will appear).        
 Obviously, the agency is represented by an Observable(Subject) class named NewsPublisher. This one is created as an abstract class because the agency want to create several types of Observable objects: in the beginning only for business news, but after some time sport and political new will be published. The concrete class is BusinessNewsPublisher.      
 The observer logic is implemented in NewsPublisher. It keeps a list of all it subscribers and it informs them about the latest news. The subscribers are represented by some observers (SMSSubscriber, EmailSubscriber). Both the observers mentioned above are inherited from the Subscriber. The subscriber is the abstract class which is known to the publisher. The publisher doesn't know about concrete observers, it knows only about their abstraction.        
-In the main class a publisher(Observable) is built and a few subscribers(Observers). The subscribers are subscribed to the publisher and they can be unsubscribed. In this architecture new types of subscribers can be easily added(instant messaging, ...) and new types of publishers(Weather News, Sport News).     
+In the main class a publisher(Observable) is built and a few subscribers(Observers). The subscribers are subscribed to the publisher and they can be unsubscribed. In this architecture new types of subscribers can be easily added(instant messaging) and new types of publishers(Weather News, Sport News).     
 
         
         
+### Free Style Design Patterns      
+
+**1. MVC Pattern:** It stands for Model-View-Controller Pattern. This pattern is used to separate application's concerns.
+* Model - Model represents an object or JAVA POJO carrying data. It can also have logic to update controller if its data changes.       
+* View - View represents the visualization of the data that model contains.     
+* Controller - Controller acts on both model and view. It controls the data flow into model object and updates the view whenever data changes. It keeps view and model separate.        
+*Example:* We can create a Student object acting as a model. StudentView will be a view class which can print student details on console and StudentController is the controller class responsible to store data in Student object and update view StudentView accordingly. Diagramatically,
+![image](./MVC.PNG)
+        
+        
+ **2. **
