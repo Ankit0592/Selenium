@@ -38,29 +38,6 @@ public class WebTest
 		driver.quit();
 	}
 
-	
-	@Test
-	public void googleExists() throws Exception
-	{
-		driver.get("http://www.google.com");
-        assertEquals("Google", driver.getTitle());		
-	}
-	
-
-	@Test
-	public void Closed() throws Exception
-	{
-		driver.get("http://www.checkbox.io/studies.html");
-		
-		// http://geekswithblogs.net/Aligned/archive/2014/10/16/selenium-and-timing-issues.aspx
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='status']/span[.='CLOSED']")));
-		List<WebElement> spans = driver.findElements(By.xpath("//a[@class='status']/span[.='CLOSED']"));
-
-		assertNotNull(spans);
-		assertEquals(5, spans.size());
-	}
-	
 	@Test
 	public void participantCount() throws Exception
 	{
@@ -77,25 +54,44 @@ public class WebTest
 	}
 	
 	@Test
-	public void clickParticipate() throws Exception
+	public void Closed() throws Exception
 	{
 		driver.get("http://www.checkbox.io/studies.html");
 		
 		// http://geekswithblogs.net/Aligned/archive/2014/10/16/selenium-and-timing-issues.aspx
 		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='status']/span[.='CLOSED']")));
+		List<WebElement> spans = driver.findElements(By.xpath("//a[@class='status']/span[.='CLOSED']"));
+
+		assertNotNull(spans);
+		assertEquals(5, spans.size());
+	}
+	
+	
+	@Test
+	public void clickParticipate() throws Exception
+	{
+		driver.get("http://www.checkbox.io/studies.html");
+		
+		// Checking count of Open status studies, matching its count with Participate button count
+		// Then matching count of Participate button and Participate buttons with attribute data-href
+		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='status']/span[.='OPEN']")));
 		List<WebElement> spans = driver.findElements(By.xpath("//a[@class='status']/span[.='OPEN']"));
 		List<WebElement> buttons = driver.findElements(By.xpath("//button[.='Participate']"));
-
+		List<WebElement> buttonsClickable = driver.findElements(By.xpath("//button[.='Participate'][@data-href]"));
+		
 		assertEquals(buttons.size(), spans.size());
+		assertEquals(buttonsClickable.size(), buttons.size());
 	}
+	
 	
 	@Test
 	public void amazonPresent() throws Exception
 	{
 		driver.get("http://www.checkbox.io/studies.html");
 		
-		// http://geekswithblogs.net/Aligned/archive/2014/10/16/selenium-and-timing-issues.aspx
+		// Checking the presence of amazon reward image using link /media/amazongc-micro.jpg
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span[contains(text(), 'Software Changes Survey')]")));
 		List<WebElement> spans = driver.findElements(By.xpath("//div//span[contains(text(), 'Software Changes Survey')]/../..//div[@class='award']//img[@src='/media/amazongc-micro.jpg']"));
