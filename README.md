@@ -77,13 +77,91 @@ In the main class a publisher(Observable) is built and a few subscribers(Observe
         
         
 ### Free Style Design Patterns      
-
+*References:* https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm     
 **1. MVC Pattern:** It stands for Model-View-Controller Pattern. This pattern is used to separate application's concerns.
 * Model - Model represents an object or JAVA POJO carrying data. It can also have logic to update controller if its data changes.       
 * View - View represents the visualization of the data that model contains.     
 * Controller - Controller acts on both model and view. It controls the data flow into model object and updates the view whenever data changes. It keeps view and model separate.        
 *Example:* We can create a Student object acting as a model. StudentView will be a view class which can print student details on console and StudentController is the controller class responsible to store data in Student object and update view StudentView accordingly. Diagramatically,
-![image](./MVC.PNG)
+![image](./MVC.PNG)     
+        
+ *References:* https://www.tutorialspoint.com/design_pattern/front_controller_pattern.htm              
+ **2. Front Controller Pattern:** The front controller design pattern is used to provide a centralized request handling mechanism so that all requests will be handled by a single handler. This handler can do the authentication/ authorization/ logging or tracking of request and then pass the requests to corresponding handlers. Following are the entities of this type of design pattern.      
+* Front Controller - Single handler for all kinds of requests coming to the application (either web based/ desktop based).      
+* Dispatcher - Front Controller may use a dispatcher object which can dispatch the request to corresponding specific handler.       
+* View - Views are the object for which the requests are made.      
+        
+*Steps involved:*       
+Step-1: Create Views        
+```
+public class HomeView {
+   public void show(){
+      System.out.println("Displaying Home Page");
+   }
+}
+```     
+Step-2: Create Dispatchers      
+```
+public class Dispatcher {
+   private StudentView studentView;
+   private HomeView homeView;
+   
+   public Dispatcher(){
+      studentView = new StudentView();
+      homeView = new HomeView();
+   }
+
+   public void dispatch(String request){
+      if(request.equalsIgnoreCase("STUDENT")){
+         studentView.show();
+      }
+      else{
+         homeView.show();
+      }	
+   }
+}
+```     
+Step-3: Create Controllers      
+```
+public class FrontController {
+	
+   private Dispatcher dispatcher;
+
+   public FrontController(){
+      dispatcher = new Dispatcher();
+   }
+
+   private boolean isAuthenticUser(){
+      System.out.println("User is authenticated successfully.");
+      return true;
+   }
+
+   private void trackRequest(String request){
+      System.out.println("Page requested: " + request);
+   }
+
+   public void dispatchRequest(String request){
+      //log each request
+      trackRequest(request);
+      
+      //authenticate the user
+      if(isAuthenticUser()){
+         dispatcher.dispatch(request);
+      }	
+   }
+}
+```     
+Step-4: Use the FrontController to demonstrate Front Controller Design Pattern      
+```
+public class FrontControllerPatternDemo {
+   public static void main(String[] args) {
+   
+      FrontController frontController = new FrontController();
+      frontController.dispatchRequest("HOME");
+      frontController.dispatchRequest("STUDENT");
+   }
+}
+```     
         
         
- **2. **
+
