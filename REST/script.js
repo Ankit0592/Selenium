@@ -6,7 +6,7 @@ var parse = require('parse-link-header');
 
 ////// FILL IN THE BLANKS
 
-var token = "token " + "b5b560a3cda740acb0848d1fc8f92fc9dd84f120";
+var token = "Your token";
 var userId = "aarora6";
 
 var urlRoot = "https://github.ncsu.edu/api/v3";
